@@ -7,8 +7,17 @@
 In JavaScript, an object is a standalone entity, with properties and type. Objects can represent real-world entities and can contain data in the form of key-value pairs. In `script.js`, we utilize objects to represent the cart and its items.
 
 ### 2. Classes
-Classes are a blueprint for creating objects. They encapsulate data for the object and methods to manipulate that data. In the `script.js`, we define classes to represent the `Cart` and `Product`:
+Classes are a blueprint for creating objects. They encapsulate data for the object and methods to manipulate that data. 
+```javascript
+class ShoppingCart {
+    constructor() {
+        this.items = [];
+        this.total = 0;
+        this.taxRate = 8.25;
+    }
+```
 
+### Code Snippet showcasing usage of class
 
 ```javascript
 class ShoppingCart {
