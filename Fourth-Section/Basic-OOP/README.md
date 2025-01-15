@@ -1,13 +1,7 @@
 
 # Basic Object-Oriented Programming (OOP) in JavaScript
-![]()
 
-This README discusses the principles of Basic Object-Oriented Programming (OOP) as implemented in the `script.js` file of the Shopping Cart project.
-
-## Overview
-Object-Oriented Programming is a programming paradigm that uses "objects" to represent data and methods to manipulate that data. OOP helps in organizing code in a more manageable way and promotes code reusability through inheritance and encapsulation.
-
-## Key Concepts of OOP
+![](shopping-cart.png)
 
 ### 1. Objects
 In JavaScript, an object is a standalone entity, with properties and type. Objects can represent real-world entities and can contain data in the form of key-value pairs. In `script.js`, we utilize objects to represent the cart and its items.
