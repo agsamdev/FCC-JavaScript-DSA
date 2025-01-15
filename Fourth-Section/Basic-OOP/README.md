@@ -32,7 +32,28 @@ class ShoppingCart {
     }
 
     addItem(id, products) {
-        // Logic to add item to cart
+       const product = products.find((item) => item.id === id);
+    const { name, price } = product;
+    this.items.push(product);
+
+    const totalCountPerProduct = {};
+    this.items.forEach((dessert) => {
+      totalCountPerProduct[dessert.id] = (totalCountPerProduct[dessert.id] || 0) + 1;
+    })
+
+    const currentProductCount = totalCountPerProduct[product.id];
+    const currentProductCountSpan = document.getElementById(`product-count-for-id${id}`);
+
+    currentProductCount > 1 
+      ? currentProductCountSpan.textContent = `${currentProductCount}x`
+      : productsContainer.innerHTML += `
+      <div id="dessert${id}" class="product">
+        <p>
+          <span class="product-count" id="product-count-for-id${id}"></span>${name}
+        </p>
+        <p>${price}</p>
+      </div>
+      `;
     }
 
     getCounts() {
@@ -40,7 +61,24 @@ class ShoppingCart {
     }
 
     clearCart() {
-        // Logic to clear the cart
+if (!this.items.length) {
+      alert("Your shopping cart is already empty");
+      return;
+    }
+
+    const isCartCleared = confirm(
+      "Are you sure you want to clear all items from your shopping cart?"
+    );
+
+    if (isCartCleared) {
+      this.items = [];
+      this.total = 0;
+      productsContainer.innerHTML = "";
+      totalNumberOfItems.textContent = 0;
+      cartSubTotal.textContent = 0;
+      cartTaxes.textContent = 0;
+      cartTotal.textContent = 0;
+    }
     }
 
     calculateTaxes(amount) {
@@ -48,16 +86,36 @@ class ShoppingCart {
     }
 
     calculateTotal() {
-        // Logic to calculate total
+const subTotal = this.items.reduce((total, item) => total + item.price, 0);
+    const tax = this.calculateTaxes(subTotal);
+    this.total = subTotal + tax;
+    cartSubTotal.textContent = `$${subTotal.toFixed(2)}`;
+    cartTaxes.textContent = `$${tax.toFixed(2)}`;
+    cartTotal.textContent = `$${this.total.toFixed(2)}`;
+    return this.total;
     }
 }
 ```
 
-### 3. Inheritance
-Inheritance allows a class to use properties and methods of another class. While the current implementation may not showcase inheritance, it can be useful for extending functionality in complex applications.
+### Calling the class
+Here we called ShoppingCart() class. 
+Then for each "Add to cart" button we would add the product item to the cart and get the total amount of items.
 
-### 4. Encapsulation
-Encapsulation is the bundling of data (properties) and methods that operate on that data within one unit, such as a class. It restricts direct access to some of the object's components, which can prevent the accidental modification of data. In `script.js`, methods like `addItem` and `calculateTotal` encapsulate the behavior of the `Cart` class.
+```js
+const cart = new ShoppingCart();
+const addToCartBtns = document.getElementsByClassName("add-to-cart-btn");
+
+[...addToCartBtns].forEach(
+  (btn) => {
+    btn.addEventListener("click", (event) => {
+      cart.addItem(Number(event.target.id), products);
+      totalNumberOfItems.textContent = cart.getCounts();
+      cart.calculateTotal();
+    })
+  }
+);
+
+```
 
 ## Implementation in script.js
 - **Product Class**: Represents a product with properties like `id`, `name`, and `price`.
@@ -68,7 +126,3 @@ Encapsulation is the bundling of data (properties) and methods that operate on t
     - `clearCart()`: Clears all items from the cart after user confirmation.
     - `calculateTaxes(amount)`: Calculates the tax amount based on the subtotal.
     - `calculateTotal()`: Calculates the total amount including taxes and updates the display.
-- **Event Handling**: The script uses event listeners to respond to user actions, such as adding items to the cart.
-
-## Conclusion
-Understanding the basic principles of OOP in JavaScript is essential for building scalable and maintainable applications. The use of classes and objects in the Shopping Cart project demonstrates how OOP can be applied to manage state and behavior effectively.
