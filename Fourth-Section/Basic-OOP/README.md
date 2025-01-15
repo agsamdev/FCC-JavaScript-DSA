@@ -9,22 +9,17 @@ In JavaScript, an object is a standalone entity, with properties and type. Objec
 ### 2. Classes
 Classes are a blueprint for creating objects. They encapsulate data for the object and methods to manipulate that data. In the `script.js`, we define classes to represent the `Cart` and `Product`:
 
-```javascript
-class Product {
-    constructor(id, name, price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-    }
-}
 
+```javascript
 class ShoppingCart {
     constructor() {
         this.items = [];
         this.total = 0;
         this.taxRate = 8.25;
     }
+```
 
+```javascript
     addItem(id, products) {
        const product = products.find((item) => item.id === id);
     const { name, price } = product;
@@ -49,17 +44,23 @@ class ShoppingCart {
       </div>
       `;
     }
+```
 
+```javascript
     getCounts() {
         return this.items.length;
     }
+```
 
+```javascript
     clearCart() {
 if (!this.items.length) {
       alert("Your shopping cart is already empty");
       return;
     }
+```
 
+```javascript
     const isCartCleared = confirm(
       "Are you sure you want to clear all items from your shopping cart?"
     );
@@ -74,11 +75,15 @@ if (!this.items.length) {
       cartTotal.textContent = 0;
     }
     }
+```
 
+```javascript
     calculateTaxes(amount) {
         return parseFloat(((this.taxRate / 100) * amount).toFixed(2));
     }
+```
 
+```javascript
     calculateTotal() {
 const subTotal = this.items.reduce((total, item) => total + item.price, 0);
     const tax = this.calculateTaxes(subTotal);
